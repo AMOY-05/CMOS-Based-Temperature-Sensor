@@ -1,5 +1,5 @@
 project:
-  title:      "Analog-Logic Temperature Controller"
+  title:      "CMOS based Temperature Sensor"
   description: "A digital controller mimicking the comparator and switching logic of an analog thermal circuit."
   how_it_works: "Takes digital representations of analog comparator stages as inputs and drives a switching transistor output (Q11) based on threshold logic."
   how_to_test: "Apply high/low signals to input pins to simulate op-amp trigger points and observe the output state on uo_out[0]."
