@@ -1,40 +1,40 @@
-project:
-  title:      "CMOS based Temperature Sensor"
-  description: "A digital controller mimicking the comparator and switching logic of an analog thermal circuit."
-  how_it_works: "Takes digital representations of analog comparator stages as inputs and drives a switching transistor output (Q11) based on threshold logic."
-  how_to_test: "Apply high/low signals to input pins to simulate op-amp trigger points and observe the output state on uo_out[0]."
-  author:      "Oyediran Abdulmalik Adéwálé"
-  revision:    "1.0"
-  license:     "Apache-2.0"
+default_nettype none
 
-# Register your inputs/outputs here
-inputs:
-  - "u1_out"      # Input from first Op-Amp stage (U1)
-  - "u2_out"      # Input from second Op-Amp stage (U2)
-  - "rt1_state"   # Digital threshold from RT1
-  - "rt2_state"   # Digital threshold from RT2
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-outputs:
-  - "q11_drive"   # Output to base of Q11 transistor
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-bidirectional:
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-  - "none"
-  - "none"
+module tt_um_analog_controller (
+    input  wire [7:0] ui_in,    // Dedicated inputs
+    output wire [7:0] uo_out,   // Dedicated outputs
+    input  wire [7:0] uio_in,   // IOs: Input path
+    output wire [7:0] uio_out,  // IOs: Output path
+    output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
+    input  wire       ena,      // always 1 when the design is powered, so you can ignore it
+    input  wire       clk,      // clock
+    input  wire       rst_n     // reset_n - low to reset
+);
+
+    // Assuming ui_in[0] and ui_in[1] are digital signals from your Op-Amps/Comparators
+    // Q11 and the switches in your schematic suggest a control loop.
+    
+    reg out_signal;
+
+    // Control Logic mimicking the Op-Amp U2 / Q11 behavior
+    always @(posedge clk) begin
+        if (!rst_n) begin
+            out_signal <= 1'b0;
+        end else begin
+            // Example logic: if U2 (ui_in[0]) is high, activate the output
+            out_signal <= ui_in[0];
+        end
+    end
+
+    // Assigning the result to the output pins
+    assign uo_out[0] = out_signal;
+    assign uo_out[7:1] = 7'b0; // Pulling unused pins low
+
+    // Bi-directional pins configured as inputs
+    assign uio_oe  = 8'b00000000;
+    assign uio_out = 8'b00000000;
+
+endmodule
 
 # Do not change!
 yaml_version: 6
