@@ -1,49 +1,40 @@
-# Tiny Tapeout project information (Wokwi project)
 project:
-  wokwi_id:     0       # Set this to the ID of your Wokwi project (the number from the project's URL)
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
-  language:     "Wokwi" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  title:      "Analog-Logic Temperature Controller"
+  description: "A digital controller mimicking the comparator and switching logic of an analog thermal circuit."
+  how_it_works: "Takes digital representations of analog comparator stages as inputs and drives a switching transistor output (Q11) based on threshold logic."
+  how_to_test: "Apply high/low signals to input pins to simulate op-amp trigger points and observe the output state on uo_out[0]."
+  author:      "Oyediran Abdulmalik Adéwálé"
+  revision:    "1.0"
+  license:     "Apache-2.0"
 
-  # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
-
-
-# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
-# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
-pinout:
-  # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
-
-  # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
-
-  # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+# Register your inputs/outputs here
+inputs:
+  - "u1_out"      # Input from first Op-Amp stage (U1)
+  - "u2_out"      # Input from second Op-Amp stage (U2)
+  - "rt1_state"   # Digital threshold from RT1
+  - "rt2_state"   # Digital threshold from RT2
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+outputs:
+  - "q11_drive"   # Output to base of Q11 transistor
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+bidirectional:
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+  - "none"
+  - "none"
 
 # Do not change!
 yaml_version: 6
